@@ -2,6 +2,7 @@ mod tokenizer;
 mod posting;
 mod index;
 mod search;
+mod bm25;
 
 use std::fs;
 use index::InvertedIndex;
@@ -37,14 +38,15 @@ fn test_search(term: &str, idx: &InvertedIndex, filenames: &Vec<String>) {
         return;
     }
 
-    for doc_id in results {
+    for (doc_id, score) in results {
         if let Some(name) = filenames.get(doc_id) {
-            println!("- [{}] {}", doc_id, name);
+            println!("- {:.3}  {}", score, name);
         } else {
-            println!("- [{}] <unknown filename>", doc_id);
+            println!("- {:.3}  <unknown filename {}>", score, doc_id);
         }
     }
 }
+
 
 
 fn main() {

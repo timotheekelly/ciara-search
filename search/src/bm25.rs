@@ -30,7 +30,7 @@ pub fn bm25_score(
     let avgdl = params.avgdl;
 
     let idf = ((total_docs as f32 - doc_freq as f32 + 0.5)
-        / (doc_freq + 0.5)).ln();
+        / (doc_freq as f32 + 0.5)).ln();
 
     let tf_component = 
         (term_freq * (k1 + 1.0)) / 

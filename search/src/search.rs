@@ -2,7 +2,7 @@ use crate::bm25::{bm25_score, BM25Params};
 use crate::index::InvertedIndex;
 
 pub fn search(idx: &InvertedIndex, query: &str) -> Vec<(usize, f32)> {
-    let Some(postings) = idx.index.get(query) else {
+    let Some(postings) = idx.map.get(query) else {
         return vec![];
     };
 
@@ -14,13 +14,24 @@ pub fn search(idx: &InvertedIndex, query: &str) -> Vec<(usize, f32)> {
 
     let mut scored = Vec::new();
 
-    for (doc_id, term_freq) in postings {
-        let doc_len = idx.doc_lengths[*doc_id];
-        let score = bm25_score(*term_freq as f32, doc_len, doc_freq, total_docs, &params);
-        scored.push((*doc_id, score));
+    for post in postings {
+        let doc_id = post.doc_id;
+        let term_freq = post.freq;
+
+        let doc_len = idx.doc_lengths[doc_id];
+
+        let score = bm25_score(
+            term_freq as f32,
+            doc_len,
+            doc_freq,
+            total_docs,
+            &params,
+        );
+
+        scored.push((doc_id, score));
     }
 
-    // Sort descending by score
+    // Sort by score descending
     scored.sort_by(|a, b| b.1.partial_cmp(&a.1).unwrap());
 
     scored
