@@ -1,7 +1,19 @@
 use crate::bm25::{bm25_score, BM25Params};
 use crate::index::InvertedIndex;
 
+
+/// Multi-term BM25 search (OR semantics):
+/// - tokenize query
+/// - for each term, score matching docs
+/// - accumulate per-doc score
+/// - return ranked docs
 pub fn search(idx: &InvertedIndex, query: &str) -> Vec<(usize, f32)> {
+    if idx.total_docs == 0 {
+        return vec![];
+    }
+
+    
+    
     let Some(postings) = idx.map.get(query) else {
         return vec![];
     };
