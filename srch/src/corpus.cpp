@@ -4,12 +4,13 @@
 #include <fstream>
 #include <sstream>
 #include <stdexcept>
+#include <cstddef>
 
 std::vector<Document> load_corpus(const std::filesystem::path& directory) {
     namespace fs = std::filesystem;
 
     std::vector<Document> docs;
-    size_t doc_id = 0;
+    std::size_t doc_id = 0;
 
     if (!fs::exists(directory)) {
         throw std::runtime_error("Corpus directory does not exist");

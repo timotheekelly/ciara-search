@@ -1,8 +1,9 @@
 #pragma once
 #include <string>
+#include <cstddef>
 
 struct Document {
-    size_t id;
+    std::size_t id;
     std::string filename;
     std::string text;
 

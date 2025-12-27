@@ -1,6 +1,6 @@
 # **CIARA Search Engine**
 
-Computational Indexing & Advanced Retrieval Architecture (CIARA) is a small, experimental search engine built from scratch in Rust.
+Corpus Indexing & Advanced Retrieval Architecture (CIARA) is a small, experimental search engine built from scratch in C++.
 It’s designed as a learning project around indexing, keyword search, and classic information-retrieval techniques (tokenization, inverted indexes, BM25 ranking, etc.).
 
 The engine currently indexes a local corpus of text files (for example, the HTTP/1.1 and HTTP/2 RFCs) and provides ranked search results using a basic BM25 implementation.
@@ -20,13 +20,13 @@ The goal is to keep the system simple and transparent while still behaving like 
 
 ```
 corpus/           Text documents to index
-search/
+srch/
   src/
-    main.rs       CLI entry point
-    index.rs      Inverted index construction and storage
-    tokenizer.rs  Tokenization logic
-    search.rs     BM25 scoring and result ranking
-    posting.rs    Posting list structures
+    main.cpp              CLI entry point
+    inverted_index.cpp    Inverted index construction and storage
+    tokenizer.cpp         Tokenization logic
+    search.cpp            BM25 scoring and result ranking
+    posting.h             Posting list structures
 ```
 
 ## How It Works
@@ -42,8 +42,7 @@ search/
 Add your text files to the `corpus/` directory, then:
 
 ```
-cd search
-cargo run
+// TODO
 ```
 
 You’ll be prompted (or the code will run predefined queries) and see the ranked results printed to stdout.

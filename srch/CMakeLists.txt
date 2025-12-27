@@ -9,6 +9,8 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 # ---- Library target ----
 add_library(corpus
     src/corpus.cpp
+    src/index.cpp
+    src/inverted_index.cpp
 )
 
 target_include_directories(corpus
