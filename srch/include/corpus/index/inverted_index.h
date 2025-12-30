@@ -4,9 +4,9 @@
 #include <cstddef>
 #include <unordered_map>
 #include <string>
-#include "analysis/tokenizer.h"
+#include "corpus/analysis/tokenizer.h"
 
-#include "posting.h"
+#include "corpus/model/posting.h"
 
 class InvertedIndex {
 public:

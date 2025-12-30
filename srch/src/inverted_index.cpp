@@ -1,26 +1,13 @@
-#include "inverted_index.h"
-
-#include <sstream>
-
-namespace {
-    std::vector<std::string> tokenize(const std::string& text) {
-        std::vector<std::string> tokens;
-        std::istringstream iss(text);
-        std::string token;
-
-        while (iss >> token) {
-            tokens.push_back(token);
-        }
-
-        return tokens;
-    }
-}
+#include "corpus/index/inverted_index.h"
 
 InvertedIndex::InvertedIndex() = default;
 
-void InvertedIndex::add_document(std::size_t doc_id,
-                                 const std::string& text) {
-    auto tokens = tokenize(text);
+void InvertedIndex::add_document(
+    std::size_t doc_id,
+    std::string_view text,
+    const corpus::analysis::Tokenizer& tokenizer
+) {
+    auto tokens = tokenizer.tokenize(text);
 
     doc_lengths.push_back(tokens.size());
     ++total_docs;
@@ -36,10 +23,10 @@ void InvertedIndex::add_document(std::size_t doc_id,
     }
 }
 
-
-const std::vector<Posting>& InvertedIndex::posting(const std::string& term) const {
+const std::vector<Posting>&
+InvertedIndex::posting(const std::string& term) const {
     static const std::vector<Posting> empty;
-    auto it = index.find(term);
 
+    auto it = index.find(term);
     return it == index.end() ? empty : it->second;
 }

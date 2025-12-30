@@ -6,7 +6,7 @@
 #include <cstring>
 #include <stdexcept>
 
-#include "corpus.h"
+#include "corpus/io/corpus.h"
 
 
 std::filesystem::path make_temp_dir() {

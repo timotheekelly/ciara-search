@@ -1,4 +1,4 @@
-#include "corpus.h"
+#include "corpus/io/corpus.h"
 
 #include <filesystem>
 #include <fstream>
